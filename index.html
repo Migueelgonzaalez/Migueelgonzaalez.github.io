@@ -6,233 +6,283 @@
     <title>Miguel González García | Portfolio ASIR & IA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'JetBrains Mono', monospace; }
         .glass-panel {
-            background: rgba(13, 17, 23, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(16, 185, 129, 0.2);
+            background: rgba(13, 17, 23, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
-        /* Ocultar barra de desplazamiento pero permitir scroll */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0D1117; }
         ::-webkit-scrollbar-thumb { background: #10B981; border-radius: 4px; }
+        
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob { animation: blob 7s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
     </style>
 </head>
 <body class="bg-[#0D1117] text-gray-300 relative overflow-x-hidden selection:bg-emerald-500 selection:text-white">
 
-    <!-- Efecto de Lluvia de Líneas (Canvas) -->
-    <canvas id="matrix-canvas" class="fixed inset-0 w-full h-full pointer-events-none opacity-40 z-0"></canvas>
+    <canvas id="matrix-canvas" class="fixed inset-0 w-full h-full pointer-events-none opacity-30 z-0"></canvas>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-emerald-900/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
-    <!-- Contenido Principal -->
     <div class="relative z-10 flex flex-col min-h-screen">
 
-        <!-- Navegación -->
-        <nav class="fixed top-0 w-full glass-panel z-50">
-            <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-                <a href="#" class="text-white font-bold text-xl flex items-center gap-2">
-                    <i class="ph ph-terminal-window text-emerald-400 text-2xl"></i>
-                    MG
+        <nav class="fixed top-0 w-full glass-panel border-b border-emerald-500/10 z-50 transition-all duration-300">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#" class="text-white font-bold text-xl flex items-center gap-2 group">
+                    <i class="ph ph-terminal-window text-emerald-400 text-2xl group-hover:scale-110 transition-transform"></i>
+                    <span class="tracking-tight">MG</span>
                 </a>
-                <div class="hidden md:flex gap-6 text-sm">
-                    <a href="#inicio" class="hover:text-emerald-400 transition-colors">Inicio</a>
-                    <a href="#sobre-mi" class="hover:text-emerald-400 transition-colors">Sobre mí</a>
-                    <a href="#proyectos" class="hover:text-emerald-400 transition-colors">Proyectos</a>
-                    <a href="#certificaciones" class="hover:text-emerald-400 transition-colors">Certificaciones</a>
+                <div class="hidden md:flex gap-8 text-sm font-medium">
+                    <a href="#inicio" class="text-gray-400 hover:text-emerald-400 transition-colors">Inicio</a>
+                    <a href="#sobre-mi" class="text-gray-400 hover:text-emerald-400 transition-colors">Sobre mí</a>
+                    <a href="#proyectos" class="text-gray-400 hover:text-emerald-400 transition-colors">Proyectos</a>
+                    <a href="#certificaciones" class="text-gray-400 hover:text-emerald-400 transition-colors">Certificaciones</a>
                 </div>
-                <div class="flex gap-4">
-                    <a href="https://github.com/Migueelgonzaalez" target="_blank" class="hover:text-emerald-400 transition-colors">
+                <div class="flex gap-5">
+                    <a href="https://github.com/Migueelgonzaalez" target="_blank" class="text-gray-400 hover:text-emerald-400 transition-colors hover:scale-110 transform duration-200">
                         <i class="ph ph-github-logo text-2xl"></i>
                     </a>
-                    <a href="mailto:migongar2006@gmail.com" class="hover:text-emerald-400 transition-colors">
+                    <a href="mailto:migongar2006@gmail.com" class="text-gray-400 hover:text-emerald-400 transition-colors hover:scale-110 transform duration-200">
                         <i class="ph ph-envelope-simple text-2xl"></i>
                     </a>
                 </div>
             </div>
         </nav>
 
-        <!-- Sección Hero (Inicio) -->
-        <section id="inicio" class="flex-grow flex flex-col justify-center items-center text-center px-4 pt-32 pb-20">
-            <p class="text-emerald-400 text-xs md:text-sm tracking-widest uppercase mb-4">Administración de Sistemas · Redes · IA</p>
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">Miguel González García</h1>
-            <p class="max-w-2xl text-sm md:text-base text-gray-400 mb-8 leading-relaxed">
-                Técnico en ASIR. Construyo y documento infraestructuras de red seguras, 
-                despliegues web e integro soluciones basadas en Inteligencia Artificial.
-            </p>
-            <div class="flex items-center gap-4 text-sm">
-                <span class="text-gray-500">Encuéntrame en</span>
-                <a href="https://github.com/Migueelgonzaalez" target="_blank" class="text-white hover:text-emerald-400 transition-colors"><i class="ph ph-github-logo text-2xl"></i></a>
-                <a href="mailto:migongar2006@gmail.com" class="text-white hover:text-emerald-400 transition-colors"><i class="ph ph-envelope-simple text-2xl"></i></a>
-                <!-- Sustituye por tu enlace real de LinkedIn -->
-                <a href="#" class="text-white hover:text-emerald-400 transition-colors"><i class="ph ph-linkedin-logo text-2xl"></i></a> 
+        <section id="inicio" class="max-w-6xl mx-auto px-6 pt-40 pb-32 w-full flex-grow flex items-center">
+            <div class="grid md:grid-cols-[1fr,auto] gap-12 items-center text-left w-full">
+                
+                <div class="order-2 md:order-1">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs md:text-sm text-emerald-400 tracking-widest uppercase mb-6 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Administración de Sistemas · Redes · IA
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-200 mb-6 tracking-tight drop-shadow-sm leading-tight">
+                        Miguel González García
+                    </h1>
+                    <p class="max-w-xl text-base md:text-lg text-gray-400 mb-10 leading-relaxed font-light">
+                        Técnico en ASIR. Construyo y documento infraestructuras de red seguras, 
+                        despliegues web e integro soluciones basadas en Inteligencia Artificial.
+                    </p>
+                    
+                    <div class="flex items-center gap-4">
+                        <a href="#sobre-mi" class="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500 border border-emerald-600 text-[#0D1117] hover:bg-emerald-400 font-bold rounded-xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:-translate-y-1 transform">
+                            Ver mi Perfil <i class="ph ph-arrow-right font-bold"></i>
+                        </a>
+                        <a href="#proyectos" class="text-gray-400 hover:text-emerald-400 font-medium text-sm p-3 transition-colors">
+                            Ver Proyectos
+                        </a>
+                    </div>
+                </div>
+
+                <div class="order-1 md:order-2 flex justify-center md:justify-end relative">
+                    <div class="absolute top-0 right-0 w-72 h-72 bg-emerald-600/10 rounded-full blur-3xl animate-blob"></div>
+                    <div class="absolute -bottom-8 -left-8 w-72 h-72 bg-cyan-600/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+                    
+                    <svg class="w-full max-w-[320px] md:max-w-[420px] h-auto relative z-10 drop-shadow-[0_0_20px_rgba(16,185,129,0.2)]" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="250" cy="250" r="210" stroke="#10B981" stroke-opacity="0.1" stroke-width="2"/>
+                        <circle cx="250" cy="250" r="170" stroke="#10B981" stroke-opacity="0.2" stroke-width="2" stroke-dasharray="8 8"/>
+                        
+                        <rect x="180" y="340" width="140" height="80" rx="8" stroke="#10B981" stroke-width="2.5" class="animate-pulse"/>
+                        <rect x="200" y="360" width="10" height="10" rx="2" fill="#10B981"/>
+                        <rect x="220" y="360" width="10" height="10" rx="2" fill="#10B981"/>
+                        <rect x="180" y="440" width="140" height="10" rx="5" fill="#10B981" fill-opacity="0.2"/>
+                        
+                        <path d="M250 80C170 80 120 140 120 200C120 250 150 280 180 300L200 340H300L320 300C350 280 380 250 380 200C380 140 330 80 250 80Z" stroke="#10B981" stroke-width="3" stroke-linecap="round" fill="#0D1117"/>
+                        <path d="M200 160H300M210 200H290M220 240H280" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-opacity="0.4"/>
+                        
+                        <circle cx="120" cy="200" r="10" fill="#10B981" class="animate-pulse"/>
+                        <circle cx="380" cy="200" r="10" fill="#10B981" class="animate-pulse"/>
+                        <circle cx="250" cy="80" r="8" fill="#a7f3d0" class="animate-pulse animation-delay-2000"/>
+                        
+                        <text x="360" y="140" fill="#10B981" fill-opacity="0.4" font-family="monospace" font-size="12">{...}</text>
+                        <text x="100" y="270" fill="#10B981" fill-opacity="0.4" font-family="monospace" font-size="12">&lt;/&gt;</text>
+                    </svg>
+                </div>
             </div>
-            
-            <a href="#sobre-mi" class="mt-16 animate-bounce text-gray-500 hover:text-emerald-400 transition-colors">
-                <i class="ph ph-arrow-down text-2xl"></i>
-            </a>
         </section>
 
-        <!-- Sobre Mí -->
-        <section id="sobre-mi" class="max-w-4xl mx-auto px-4 py-20">
-            <h2 class="text-2xl font-bold text-white mb-8 border-b border-emerald-400/30 pb-2 inline-block"><span class="text-emerald-400">01.</span> Sobre Mí</h2>
-            <div class="glass-panel p-6 md:p-8 rounded-lg">
-                <p class="text-gray-300 leading-relaxed mb-6">
-                    Soy un <strong class="text-white">Técnico IT proactivo y resolutivo</strong>. Cuento con experiencia en consultoría tecnológica, especializado en despliegue de sistemas operativos y desarrollo web. 
+        <section id="sobre-mi" class="max-w-4xl mx-auto px-6 py-24">
+            <h2 class="text-3xl font-bold text-white mb-10 flex items-center gap-3">
+                <span class="text-emerald-400 font-normal">01.</span> Sobre Mí
+                <div class="h-[1px] bg-emerald-400/20 flex-grow ml-4"></div>
+            </h2>
+            <div class="glass-panel p-8 md:p-10 rounded-2xl relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                
+                <p class="text-gray-300 leading-relaxed mb-6 text-lg font-light relative z-10">
+                    Soy un <strong class="text-emerald-400 font-medium">Técnico IT proactivo y resolutivo</strong>. Cuento con experiencia en consultoría tecnológica, especializado en despliegue de sistemas operativos y desarrollo web. 
                 </p>
-                <p class="text-gray-300 leading-relaxed mb-8">
-                    Me apasiona la innovación, por lo que he complementado mi formación técnica en <strong class="text-white">ASIR</strong> con certificaciones especializadas en <strong class="text-emerald-400">Inteligencia Artificial y la API de OpenAI</strong>. Mi objetivo es aportar soluciones eficientes combinando código, administración de sistemas y automatización.
+                <p class="text-gray-300 leading-relaxed mb-10 text-lg font-light relative z-10">
+                    Me apasiona la innovación, por lo que he complementado mi formación técnica en <strong class="text-white font-medium">ASIR</strong> con certificaciones especializadas en <strong class="text-emerald-400 font-medium">Inteligencia Artificial y la API de OpenAI</strong>. Mi objetivo es aportar soluciones eficientes combinando código, administración de sistemas y automatización.
                 </p>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm relative z-10">
                     <div>
-                        <h3 class="text-emerald-400 mb-2 font-bold">Sistemas</h3>
-                        <ul class="text-gray-400 space-y-1">
-                            <li>Linux / Windows</li>
-                            <li>Docker</li>
-                            <li>Despliegue SO</li>
+                        <h3 class="text-white mb-3 font-bold border-b border-emerald-400/30 pb-2 inline-block">Sistemas</h3>
+                        <ul class="text-gray-400 space-y-2.5 mt-2">
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> Linux / Windows</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> Docker</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> Despliegue SO</li>
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-emerald-400 mb-2 font-bold">Desarrollo</h3>
-                        <ul class="text-gray-400 space-y-1">
-                            <li>Python / PHP</li>
-                            <li>HTML / CSS / JS</li>
-                            <li>MySQL / SQLite</li>
+                        <h3 class="text-white mb-3 font-bold border-b border-emerald-400/30 pb-2 inline-block">Desarrollo</h3>
+                        <ul class="text-gray-400 space-y-2.5 mt-2">
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> Python / PHP</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> HTML / CSS / JS</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> MySQL / SQLite</li>
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-emerald-400 mb-2 font-bold">Herramientas</h3>
-                        <ul class="text-gray-400 space-y-1">
-                            <li>Git / GitHub</li>
-                            <li>VSCode / MkDocs</li>
-                            <li>API OpenAI</li>
+                        <h3 class="text-white mb-3 font-bold border-b border-emerald-400/30 pb-2 inline-block">Herramientas</h3>
+                        <ul class="text-gray-400 space-y-2.5 mt-2">
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> Git / GitHub</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> VSCode / MkDocs</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> API OpenAI</li>
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-emerald-400 mb-2 font-bold">Soft Skills</h3>
-                        <ul class="text-gray-400 space-y-1">
-                            <li>Resolución</li>
-                            <li>Proactividad</li>
-                            <li>Trabajo en Equipo</li>
+                        <h3 class="text-white mb-3 font-bold border-b border-emerald-400/30 pb-2 inline-block">Soft Skills</h3>
+                        <ul class="text-gray-400 space-y-2.5 mt-2">
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> Resolución</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> Proactividad</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-400"></i> Trabajo Equipo</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Proyectos -->
-        <section id="proyectos" class="max-w-4xl mx-auto px-4 py-20">
-            <h2 class="text-2xl font-bold text-white mb-8 border-b border-emerald-400/30 pb-2 inline-block"><span class="text-emerald-400">02.</span> Proyectos Destacados</h2>
+        <section id="proyectos" class="max-w-4xl mx-auto px-6 py-24">
+            <h2 class="text-3xl font-bold text-white mb-10 flex items-center gap-3">
+                <span class="text-emerald-400 font-normal">02.</span> Proyectos Destacados
+                <div class="h-[1px] bg-emerald-400/20 flex-grow ml-4"></div>
+            </h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Proyecto 1 -->
-                <div class="glass-panel p-6 rounded-lg hover:border-emerald-400 transition-colors group">
-                    <div class="flex justify-between items-start mb-4">
-                        <i class="ph ph-folder-notch text-4xl text-emerald-400"></i>
-                        <a href="https://github.com/Migueelgonzaalez/Plantilla_TFG_Final" target="_blank" class="text-gray-400 hover:text-white"><i class="ph ph-github-logo text-2xl"></i></a>
+                <div class="glass-panel p-8 rounded-2xl hover:border-emerald-400/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgb(16,185,129,0.15)] group flex flex-col h-full relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-colors"></div>
+                    <div class="flex justify-between items-start mb-6 relative z-10">
+                        <i class="ph ph-folder-notch text-4xl text-emerald-400 group-hover:text-emerald-300 transition-colors"></i>
+                        <a href="https://github.com/Migueelgonzaalez/Plantilla_TFG_Final" target="_blank" class="text-gray-400 hover:text-emerald-400 transition-colors"><i class="ph ph-github-logo text-3xl"></i></a>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">Marco de Seguridad Integral</h3>
-                    <p class="text-gray-400 text-sm mb-4 line-clamp-3">
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors relative z-10">Marco de Seguridad Integral</h3>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed flex-grow relative z-10 font-light">
                         TFG: Diseño e implementación de un marco de seguridad para la infraestructura de red y servidor de una PYME del sector legal, garantizando la protección de los datos.
                     </p>
-                    <div class="flex flex-wrap gap-2 text-xs text-emerald-400/70 mt-auto">
-                        <span class="bg-emerald-400/10 px-2 py-1 rounded">Seguridad</span>
-                        <span class="bg-emerald-400/10 px-2 py-1 rounded">Redes</span>
-                        <span class="bg-emerald-400/10 px-2 py-1 rounded">TeX</span>
+                    <div class="flex flex-wrap gap-2 text-xs font-medium text-emerald-400/80 relative z-10">
+                        <span class="bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full">Seguridad</span>
+                        <span class="bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full">Redes</span>
+                        <span class="bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full">TeX</span>
                     </div>
                 </div>
 
-                <!-- Proyecto 2 -->
-                <div class="glass-panel p-6 rounded-lg hover:border-emerald-400 transition-colors group">
-                    <div class="flex justify-between items-start mb-4">
-                        <i class="ph ph-network text-4xl text-emerald-400"></i>
-                        <a href="https://github.com/Migueelgonzaalez/Proyecto-DHCP_MIGUELGONZ-LEZ2-ASIR" target="_blank" class="text-gray-400 hover:text-white"><i class="ph ph-github-logo text-2xl"></i></a>
+                <div class="glass-panel p-8 rounded-2xl hover:border-emerald-400/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgb(16,185,129,0.15)] group flex flex-col h-full relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-colors"></div>
+                    <div class="flex justify-between items-start mb-6 relative z-10">
+                        <i class="ph ph-network text-4xl text-emerald-400 group-hover:text-emerald-300 transition-colors"></i>
+                        <a href="https://github.com/Migueelgonzaalez/Proyecto-DHCP_MIGUELGONZ-LEZ2-ASIR" target="_blank" class="text-gray-400 hover:text-emerald-400 transition-colors"><i class="ph ph-github-logo text-3xl"></i></a>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">Despliegue DHCP</h3>
-                    <p class="text-gray-400 text-sm mb-4">
-                        Entorno Flipped Classroom para la configuración y administración práctica del protocolo DHCP.
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors relative z-10">Despliegue DHCP</h3>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed flex-grow relative z-10 font-light">
+                        Entorno Flipped Classroom para la configuración y administración práctica del protocolo DHCP simulando infraestructuras reales.
                     </p>
-                    <div class="flex flex-wrap gap-2 text-xs text-emerald-400/70 mt-auto">
-                        <span class="bg-emerald-400/10 px-2 py-1 rounded">Redes</span>
-                        <span class="bg-emerald-400/10 px-2 py-1 rounded">Windows Server</span>
-                        <span class="bg-emerald-400/10 px-2 py-1 rounded">Linux</span>
+                    <div class="flex flex-wrap gap-2 text-xs font-medium text-emerald-400/80 relative z-10">
+                        <span class="bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full">Redes</span>
+                        <span class="bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full">Windows Server</span>
+                        <span class="bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full">Linux</span>
                     </div>
                 </div>
 
-                <!-- Proyecto 3 -->
-                <div class="glass-panel p-6 rounded-lg hover:border-emerald-400 transition-colors group">
-                    <div class="flex justify-between items-start mb-4">
-                        <i class="ph ph-book-open-text text-4xl text-emerald-400"></i>
-                        <a href="https://github.com/Migueelgonzaalez/practica-final-mkdocs" target="_blank" class="text-gray-400 hover:text-white"><i class="ph ph-github-logo text-2xl"></i></a>
+                <div class="glass-panel p-8 rounded-2xl hover:border-emerald-400/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgb(16,185,129,0.15)] group flex flex-col h-full md:col-span-2 md:w-1/2 md:mx-auto relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-colors"></div>
+                    <div class="flex justify-between items-start mb-6 relative z-10">
+                        <i class="ph ph-book-open-text text-4xl text-emerald-400 group-hover:text-emerald-300 transition-colors"></i>
+                        <a href="https://github.com/Migueelgonzaalez/practica-final-mkdocs" target="_blank" class="text-gray-400 hover:text-emerald-400 transition-colors"><i class="ph ph-github-logo text-3xl"></i></a>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">Documentación Técnica MkDocs</h3>
-                    <p class="text-gray-400 text-sm mb-4">
-                        Estandarización de recursos y manuales técnicos desplegados usando generadores estáticos.
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors relative z-10">Documentación Técnica MkDocs</h3>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed flex-grow relative z-10 font-light">
+                        Estandarización de recursos y manuales técnicos desplegados usando generadores estáticos web.
                     </p>
-                    <div class="flex flex-wrap gap-2 text-xs text-emerald-400/70 mt-auto">
-                        <span class="bg-emerald-400/10 px-2 py-1 rounded">MkDocs</span>
-                        <span class="bg-emerald-400/10 px-2 py-1 rounded">Markdown</span>
-                        <span class="bg-emerald-400/10 px-2 py-1 rounded">Python</span>
+                    <div class="flex flex-wrap gap-2 text-xs font-medium text-emerald-400/80 relative z-10">
+                        <span class="bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full">MkDocs</span>
+                        <span class="bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full">Markdown</span>
+                        <span class="bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full">Python</span>
                     </div>
                 </div>
             </div>
             
-            <div class="text-center mt-10">
-                <a href="https://github.com/Migueelgonzaalez?tab=repositories" target="_blank" class="inline-block px-6 py-3 border border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-[#0D1117] font-bold rounded transition-colors">
-                    Ver más en GitHub
+            <div class="text-center mt-12">
+                <a href="https://github.com/Migueelgonzaalez?tab=repositories" target="_blank" class="inline-flex items-center gap-2.5 px-8 py-4 bg-transparent border border-emerald-400/50 text-emerald-400 hover:border-emerald-400 hover:bg-emerald-400 hover:text-[#0D1117] font-bold rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:-translate-y-1 transform">
+                    Ver más repositorios <i class="ph ph-arrow-right font-bold"></i>
                 </a>
             </div>
         </section>
 
-        <!-- Certificaciones -->
-        <section id="certificaciones" class="max-w-4xl mx-auto px-4 py-20 mb-10">
-            <h2 class="text-2xl font-bold text-white mb-8 border-b border-emerald-400/30 pb-2 inline-block"><span class="text-emerald-400">03.</span> Certificaciones IA</h2>
+        <section id="certificaciones" class="max-w-4xl mx-auto px-6 py-24 mb-10">
+            <h2 class="text-3xl font-bold text-white mb-10 flex items-center gap-3">
+                <span class="text-emerald-400 font-normal">03.</span> Certificaciones IA
+                <div class="h-[1px] bg-emerald-400/20 flex-grow ml-4"></div>
+            </h2>
             
-            <div class="space-y-4">
-                <!-- Certificado 1 -->
-                <div class="glass-panel p-5 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                    <div class="flex items-center gap-4">
-                        <div class="p-3 bg-emerald-400/10 rounded text-emerald-400">
+            <div class="space-y-5">
+                <div class="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:border-emerald-400/40 transition-colors group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/2 to-emerald-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                    <div class="flex items-center gap-5 relative z-10">
+                        <div class="p-4 bg-emerald-400/10 rounded-xl text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-400/15 transition-all duration-300">
                             <i class="ph ph-certificate text-3xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-white font-bold">Fundamentos de la Inteligencia Artificial</h3>
-                            <p class="text-sm text-gray-400">OpenWebinars · 7 horas · Mayo 2026</p>
+                            <h3 class="text-lg text-white font-bold group-hover:text-emerald-400 transition-colors">Fundamentos de la Inteligencia Artificial</h3>
+                            <p class="text-sm text-gray-400 mt-1">OpenWebinars · 7 horas · Mayo 2026</p>
                         </div>
                     </div>
-                    <a href="certificado_fundamentos_de_la_inteligencia_artificial.pdf" target="_blank" class="text-xs border border-emerald-400 text-emerald-400 px-4 py-2 rounded hover:bg-emerald-400 hover:text-[#0D1117] transition-colors flex items-center gap-2">
-                        <i class="ph ph-file-pdf"></i> Ver PDF
+                    <a href="certificado_fundamentos_de_la_inteligencia_artificial.pdf" target="_blank" class="w-full md:w-auto justify-center text-sm border border-emerald-400/50 text-emerald-400 px-6 py-2.5 rounded-lg hover:bg-emerald-400 hover:text-[#0D1117] transition-all duration-300 flex items-center gap-2 font-semibold relative z-10 shadow-sm hover:shadow-emerald-500/20">
+                        <i class="ph ph-file-pdf text-lg"></i> Ver PDF
                     </a>
                 </div>
 
-                <!-- Certificado 2 -->
-                <div class="glass-panel p-5 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                    <div class="flex items-center gap-4">
-                        <div class="p-3 bg-emerald-400/10 rounded text-emerald-400">
+                <div class="glass-panel p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:border-emerald-400/40 transition-colors group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/2 to-emerald-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                    <div class="flex items-center gap-5 relative z-10">
+                        <div class="p-4 bg-emerald-400/10 rounded-xl text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-400/15 transition-all duration-300">
                             <i class="ph ph-brain text-3xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-white font-bold">Dominando ChatGPT con la API de OpenAI</h3>
-                            <p class="text-sm text-gray-400">OpenWebinars · 5 horas · Mayo 2026</p>
+                            <h3 class="text-lg text-white font-bold group-hover:text-emerald-400 transition-colors">Dominando ChatGPT con la API de OpenAI</h3>
+                            <p class="text-sm text-gray-400 mt-1">OpenWebinars · 5 horas · Mayo 2026</p>
                         </div>
                     </div>
-                    <a href="certificado_dominando_chatgpt_con_la_api_de_openai.pdf" target="_blank" class="text-xs border border-emerald-400 text-emerald-400 px-4 py-2 rounded hover:bg-emerald-400 hover:text-[#0D1117] transition-colors flex items-center gap-2">
-                        <i class="ph ph-file-pdf"></i> Ver PDF
+                    <a href="certificado_dominando_chatgpt_con_la_api_de_openai.pdf" target="_blank" class="w-full md:w-auto justify-center text-sm border border-emerald-400/50 text-emerald-400 px-6 py-2.5 rounded-lg hover:bg-emerald-400 hover:text-[#0D1117] transition-all duration-300 flex items-center gap-2 font-semibold relative z-10 shadow-sm hover:shadow-emerald-500/20">
+                        <i class="ph ph-file-pdf text-lg"></i> Ver PDF
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="text-center py-8 text-gray-500 text-sm border-t border-gray-800 mt-auto">
-            <p>Diseñado y desarrollado por Miguel González García &copy; 2026</p>
-            <p class="mt-2 text-xs">Desplegado en GitHub Pages</p>
+        <footer class="text-center py-10 text-gray-500 text-sm border-t border-emerald-500/10 mt-auto bg-[#0A0D12]">
+            <div class="max-w-6xl mx-auto px-6">
+                <p>Diseñado y desarrollado por <span class="text-gray-300 font-medium hover:text-emerald-400 transition-colors">Miguel González García</span> &copy; 2026</p>
+                <p class="mt-3 text-xs flex items-center justify-center gap-1.5 opacity-70">
+                    Desplegado en <i class="ph ph-github-logo text-emerald-400 text-base"></i> GitHub Pages
+                </p>
+            </div>
         </footer>
 
     </div>
 
-    <!-- Script de las líneas cayendo (Matrix minimalista) -->
     <script>
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
@@ -241,20 +291,22 @@
         canvas.height = window.innerHeight;
 
         const lines = [];
-        const numLines = 50; // Cantidad de líneas en pantalla
+        const numLines = 60; // Ligeramente más líneas
 
         for (let i = 0; i < numLines; i++) {
             lines.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                length: Math.random() * 50 + 20,
-                speed: Math.random() * 2 + 1,
-                opacity: Math.random() * 0.5 + 0.1
+                length: Math.random() * 60 + 20, // Más largas
+                speed: Math.random() * 1.2 + 0.3, // Un poco más lentas y variadas
+                opacity: Math.random() * 0.3 + 0.05 // Más sutiles
             });
         }
 
         function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Fondo ligeramente acumulativo para rastro suave
+            ctx.fillStyle = 'rgba(13, 17, 23, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             
             lines.forEach(line => {
                 ctx.beginPath();
@@ -264,7 +316,7 @@
                 gradient.addColorStop(1, `rgba(16, 185, 129, ${line.opacity})`); // Punta verde esmeralda
 
                 ctx.strokeStyle = gradient;
-                ctx.lineWidth = 1.5;
+                ctx.lineWidth = 1.2; // Un poco más finas
                 ctx.moveTo(line.x, line.y);
                 ctx.lineTo(line.x, line.y + line.length);
                 ctx.stroke();
