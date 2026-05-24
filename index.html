@@ -86,29 +86,15 @@
                     </div>
                 </div>
 
-                <div class="order-1 md:order-2 flex justify-center md:justify-end relative">
+                <div class="order-1 md:order-2 flex justify-center relative">
                     <div class="absolute top-0 right-0 w-72 h-72 bg-emerald-600/10 rounded-full blur-3xl animate-blob"></div>
                     <div class="absolute -bottom-8 -left-8 w-72 h-72 bg-cyan-600/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
                     
-                    <svg class="w-full max-w-[320px] md:max-w-[420px] h-auto relative z-10 drop-shadow-[0_0_20px_rgba(16,185,129,0.2)]" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="250" cy="250" r="210" stroke="#10B981" stroke-opacity="0.1" stroke-width="2"/>
-                        <circle cx="250" cy="250" r="170" stroke="#10B981" stroke-opacity="0.2" stroke-width="2" stroke-dasharray="8 8"/>
-                        
-                        <rect x="180" y="340" width="140" height="80" rx="8" stroke="#10B981" stroke-width="2.5" class="animate-pulse"/>
-                        <rect x="200" y="360" width="10" height="10" rx="2" fill="#10B981"/>
-                        <rect x="220" y="360" width="10" height="10" rx="2" fill="#10B981"/>
-                        <rect x="180" y="440" width="140" height="10" rx="5" fill="#10B981" fill-opacity="0.2"/>
-                        
-                        <path d="M250 80C170 80 120 140 120 200C120 250 150 280 180 300L200 340H300L320 300C350 280 380 250 380 200C380 140 330 80 250 80Z" stroke="#10B981" stroke-width="3" stroke-linecap="round" fill="#0D1117"/>
-                        <path d="M200 160H300M210 200H290M220 240H280" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-opacity="0.4"/>
-                        
-                        <circle cx="120" cy="200" r="10" fill="#10B981" class="animate-pulse"/>
-                        <circle cx="380" cy="200" r="10" fill="#10B981" class="animate-pulse"/>
-                        <circle cx="250" cy="80" r="8" fill="#a7f3d0" class="animate-pulse animation-delay-2000"/>
-                        
-                        <text x="360" y="140" fill="#10B981" fill-opacity="0.4" font-family="monospace" font-size="12">{...}</text>
-                        <text x="100" y="270" fill="#10B981" fill-opacity="0.4" font-family="monospace" font-size="12">&lt;/&gt;</text>
-                    </svg>
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full p-1 bg-gradient-to-r from-emerald-400 to-cyan-500 shadow-[0_0_40px_rgba(16,185,129,0.4)] z-10">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop" 
+                             alt="Perfil o Setup" 
+                             class="w-full h-full object-cover rounded-full border-4 border-[#0D1117] hover:scale-105 transition-transform duration-500">
+                    </div>
                 </div>
             </div>
         </section>
@@ -291,39 +277,36 @@
         canvas.height = window.innerHeight;
 
         const lines = [];
-        const numLines = 60; // Ligeramente más líneas
+        const numLines = 60;
 
         for (let i = 0; i < numLines; i++) {
             lines.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                length: Math.random() * 60 + 20, // Más largas
-                speed: Math.random() * 1.2 + 0.3, // Un poco más lentas y variadas
-                opacity: Math.random() * 0.3 + 0.05 // Más sutiles
+                length: Math.random() * 60 + 20, 
+                speed: Math.random() * 1.2 + 0.3, 
+                opacity: Math.random() * 0.3 + 0.05 
             });
         }
 
         function draw() {
-            // Fondo ligeramente acumulativo para rastro suave
             ctx.fillStyle = 'rgba(13, 17, 23, 0.1)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
             lines.forEach(line => {
                 ctx.beginPath();
-                // Gradiente para que parezca que se desvanece
                 let gradient = ctx.createLinearGradient(line.x, line.y, line.x, line.y + line.length);
-                gradient.addColorStop(0, `rgba(16, 185, 129, 0)`); // Inicio transparente
-                gradient.addColorStop(1, `rgba(16, 185, 129, ${line.opacity})`); // Punta verde esmeralda
+                gradient.addColorStop(0, `rgba(16, 185, 129, 0)`); 
+                gradient.addColorStop(1, `rgba(16, 185, 129, ${line.opacity})`); 
 
                 ctx.strokeStyle = gradient;
-                ctx.lineWidth = 1.2; // Un poco más finas
+                ctx.lineWidth = 1.2; 
                 ctx.moveTo(line.x, line.y);
                 ctx.lineTo(line.x, line.y + line.length);
                 ctx.stroke();
 
                 line.y += line.speed;
 
-                // Reiniciar arriba cuando salen de la pantalla
                 if (line.y > canvas.height) {
                     line.y = -line.length;
                     line.x = Math.random() * canvas.width;
@@ -335,7 +318,6 @@
 
         draw();
 
-        // Ajustar canvas al redimensionar ventana
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
